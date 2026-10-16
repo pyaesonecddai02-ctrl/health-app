@@ -164,6 +164,30 @@ function App() {
     }));
   };
 
+  // 1. Clean Slate Reset (0 water, 0 steps, empty meals, empty workouts, meds unchecked)
+  const handleCleanSlateReset = () => {
+    setDailyState({
+      waterGlasses: 0,
+      steps: 0,
+      weight: profile.baselineWeight || 64.5,
+      bloodPressure: { systolic: 120, diastolic: 80 },
+      meals: [],
+      unit: 'kg',
+      sleepData: { hours: 0, qualityScore: 0, bedtime: '23:00', wakeTime: '07:00' },
+      fastingData: { targetHours: 16, isActive: false, startTime: Date.now() },
+      moodData: { currentMood: 'calm', stressLevel: 1, notes: '' },
+      workouts: [],
+      medications: [
+        { id: 'med1', name: 'Vitamin D3', dosage: '2000 IU', timeOfDay: 'Morning', taken: false },
+        { id: 'med2', name: 'Omega-3 Fish Oil', dosage: '1000 mg', timeOfDay: 'Lunch', taken: false },
+        { id: 'med3', name: 'Magnesium Glycinate', dosage: '400 mg', timeOfDay: 'Bedtime', taken: false },
+      ],
+    });
+    setStreakCount(1);
+    soundEngine.playChime();
+  };
+
+  // 2. Restore Demonstration Data
   const handleResetDemoData = () => {
     setDailyState({
       waterGlasses: 5,
@@ -186,6 +210,22 @@ function App() {
     });
     setProfile(DEFAULT_PROFILE);
     setCurrentTheme(NATURE_THEMES[0]);
+    soundEngine.playChime();
+  };
+
+  // 3. Complete Factory Wipe
+  const handleFactoryReset = () => {
+    try {
+      localStorage.removeItem('vitalis_daily_state');
+      localStorage.removeItem('vitalis_profile');
+      localStorage.removeItem('vitalis_theme');
+    } catch (err) {
+      console.warn('Failed to clear storage', err);
+    }
+    handleCleanSlateReset();
+    setProfile(DEFAULT_PROFILE);
+    setCurrentTheme(NATURE_THEMES[0]);
+    soundEngine.playChime();
   };
 
   return (
@@ -326,11 +366,14 @@ function App() {
         onSelectTheme={(theme) => setCurrentTheme(theme)}
       />
 
-      {/* Confirmation Reset Code Modal */}
+      {/* Confirmation & Multi-tier Reset Modal */}
       <ResetCodeModal
         isOpen={isResetCodeOpen}
         onClose={() => setIsResetCodeOpen(false)}
-        onConfirmReset={handleResetDemoData}
+        onCleanReset={handleCleanSlateReset}
+        onDemoReset={handleResetDemoData}
+        onFactoryReset={handleFactoryReset}
+        lang={lang}
       />
     </div>
   );

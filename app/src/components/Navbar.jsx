@@ -8,6 +8,7 @@ import {
   FileText,
   Image,
   RefreshCw,
+  RotateCcw,
 } from 'lucide-react';
 import { AmbientPlayer } from './AmbientPlayer';
 
@@ -115,18 +116,6 @@ export function Navbar({
             <span className="hidden lg:inline">Admin Console</span>
           </button>
 
-          {/* Reset App Data with Security Code */}
-          {onOpenResetCode && (
-            <button
-              type="button"
-              onClick={onOpenResetCode}
-              title="Reset App Data with Security Code"
-              className="p-2 rounded-xl bg-white/5 hover:bg-rose-500/20 text-white/60 hover:text-rose-300 border border-white/10 transition cursor-pointer"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
-          )}
-
           {/* Profile Button */}
           <button
             type="button"
@@ -141,6 +130,25 @@ export function Navbar({
               <span className="text-[10px] text-white/50">{profile.age} yrs • {profile.baselineWeight}kg</span>
             </div>
           </button>
+
+          {/* Reset All Health Records Button (Directly next to Profile Button) */}
+          {onOpenResetCode && (
+            <button
+              type="button"
+              onClick={onOpenResetCode}
+              title={
+                lang === 'my'
+                  ? 'ကျန်းမာရေး မှတ်တမ်းများ (ရေ၊ ခြေလှမ်း၊ အစားအသောက်၊ လေ့ကျင့်ခန်း၊ ဆေးဝါး) မူလသန့်ရှင်းသော အခြေအနေသို့ Reset ပြန်ချရန်'
+                  : 'Reset health logs (water, steps, meals, workouts, meds) to clean state'
+              }
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/30 text-rose-300 hover:text-white border border-rose-500/35 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(244,63,94,0.15)] group cursor-pointer"
+            >
+              <RotateCcw className="w-4 h-4 text-rose-400 group-hover:-rotate-180 transition-transform duration-500" />
+              <span className="inline font-medium">
+                {lang === 'my' ? 'Reset' : 'Reset'}
+              </span>
+            </button>
+          )}
 
           {/* Auth Button */}
           {isLoggedIn ? (
