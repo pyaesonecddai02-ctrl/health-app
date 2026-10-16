@@ -87,6 +87,29 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+## 🚀 Deployment Guide
+
+### 🚂 1. Deploy API on Railway (Backend)
+1. Go to [Railway.app](https://railway.app/) and log in with GitHub.
+2. Click **New Project** → **Deploy from GitHub repo** → select `health-app`.
+3. In the service settings, set **Root Directory** to `/api`.
+4. Railway will automatically detect Node.js, run `npm install`, and start the server via `server.js` on port `5000` (or assigned dynamic port).
+5. Under **Settings** → **Domains**, click **Generate Domain** (e.g. `https://vitalis-api.up.railway.app`).
+6. Test your live backend health check: `https://vitalis-api.up.railway.app/health`.
+
+---
+
+### 🌐 2. Deploy App on Netlify (Frontend)
+1. Go to [Netlify.com](https://www.netlify.com/) and log in with GitHub.
+2. Click **Add new site** → **Import an existing project** → select `health-app`.
+3. Netlify will automatically detect `netlify.toml` from the repository:
+   - **Base directory**: `app`
+   - **Build command**: `npm run build`
+   - **Publish directory**: `app/dist` (or `dist`)
+4. In **Site Configuration** → **Environment variables**, add:
+   - `VITE_API_URL` = your Railway backend URL (e.g. `https://vitalis-api.up.railway.app`)
+5. Click **Deploy Site**!
+
 ---
 
 ## 📜 License
