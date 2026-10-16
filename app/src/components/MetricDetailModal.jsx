@@ -234,28 +234,44 @@ export function MetricDetailModal({
         );
 
       case 'fasting':
+        const targetFastingHours = dailyState.fastingData?.targetHours || 16;
+        const currentFastingProtocol = dailyState.fastingData?.protocol || (targetFastingHours === 20 ? '20:4' : '16:8');
         return (
           <div className="space-y-4">
             <div className="flex items-center gap-3 p-4 rounded-xl bg-orange-500/10 border border-orange-400/30">
               <Timer className="w-8 h-8 text-orange-300 shrink-0" />
               <div>
                 <h4 className="font-bold text-white text-base">Fasting Autophagy Progression</h4>
-                <p className="text-xs text-white/70">16:8 Protocol (16 hrs Fast / 8 hrs Eating)</p>
+                <p className="text-xs text-white/70">
+                  {currentFastingProtocol === '20:4' ? '20:4 Warrior Diet (20h Fast / 4h Eat)' : '16:8 LeanGains (16h Fast / 8h Eat)'}
+                </p>
               </div>
             </div>
 
             <div className="space-y-2 text-xs">
               <div className="p-2.5 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
                 <span>0-4 Hours</span>
-                <span className="text-white/60">Blood sugar stabilization</span>
+                <span className="text-white/60">Anabolic digestion & blood sugar stabilization</span>
               </div>
               <div className="p-2.5 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
-                <span>12-14 Hours</span>
-                <span className="text-orange-400 font-semibold">Fat Burning & Ketone Production</span>
+                <span>4-12 Hours</span>
+                <span className="text-amber-300">Glycogen depletion & insulin drop</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-white/5 border border-white/10 flex items-center justify-between">
+                <span>12-16 Hours</span>
+                <span className="text-orange-400 font-semibold">Fat Burning & Ketone Production 🔥</span>
               </div>
               <div className="p-2.5 rounded-lg bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-between text-emerald-300">
-                <span>14-16 Hours</span>
-                <span className="font-bold">Cellular Autophagy Active ✨</span>
+                <span>16-18 Hours</span>
+                <span className="font-bold">Cellular Autophagy Active (16:8 Goal) ✨</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-teal-500/20 border border-teal-400/40 flex items-center justify-between text-teal-200">
+                <span>18-20 Hours</span>
+                <span className="font-bold">Deep Autophagy & HGH Surge (20:4 Warrior Goal) 🌟</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-cyan-500/15 border border-cyan-400/30 flex items-center justify-between text-cyan-200">
+                <span>20+ Hours</span>
+                <span className="font-bold">Peak Metabolic Rejuvenation & Insulin Sensitivity 🏆</span>
               </div>
             </div>
           </div>
