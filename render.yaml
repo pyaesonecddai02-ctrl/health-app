@@ -1,0 +1,26 @@
+services:
+  # 1. Backend Express API on Render (100% Free Web Service)
+  - type: web
+    name: vitalis-health-api
+    env: node
+    plan: free
+    rootDir: api
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 5000
+
+  # 2. Frontend React Web App on Render (100% Free Static Site)
+  - type: web
+    name: vitalis-health-app
+    env: static
+    plan: free
+    rootDir: app
+    buildCommand: npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
