@@ -161,3 +161,5 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🌿 Vitalis API Server running on port ${PORT}`);
   console.log(`🔗 Health check available at: http://localhost:${PORT}/health`);
 });
+
+export default app;
